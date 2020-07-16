@@ -1,0 +1,37 @@
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# react
+.DS_*
+*.log
+logs
+**/*.backup.*
+**/*.back.*
+
+# dependencies
+/node_modules
+/bower_componets
+/.pnp
+.pnp.js
+
+# testing
+/coverage
+
+# production
+/build
+
+#ide
+/.vs
+.vs
+*.sublime*
+
+# misc
+.DS_Store
+.env.local
+.env.*.local
+
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# testing
+/coverage
