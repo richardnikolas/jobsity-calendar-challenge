@@ -1,26 +1,47 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { Provider } from 'react-redux';
+import { ConnectedRouter } from 'connected-react-router';
+import { Switch, Route, Redirect } from 'react-router-dom';
+import { makeStyles } from '@material-ui/core/styles';
+import { ThemeProvider } from '@material-ui/styles';
+import configureStore, { history } from './store';
+import { routes } from './shared/constants/routes';
+import { muiTheme, palette } from './shared/styles/theme';
+import Calendar from './features/calendar/views/Calendar';
+
+const useStyles = makeStyles({
+  root: {
+    position: 'relative',
+    overflowX: 'hidden',
+    height: '100%',
+    backgroundColor: palette.background.main,
+  }
+});
+
+const store = configureStore();
 
 function App() {
+  const classes = useStyles();
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <Provider store={store}>
+      <ThemeProvider theme={muiTheme}>
+        <div className={classes.root} id={'rootApp'}>
+          <ConnectedRouter history={history}>          
+            <Route path="*">
+              <Switch>
+                <Route 
+                  exact 
+                  path={routes.home.path} 
+                  render={Calendar} />
+                <Redirect path="*" to={routes.home.path} />
+              </Switch>
+            </Route>          
+          </ConnectedRouter>
+        </div>
+      </ThemeProvider>
+    </Provider>
+  )
 }
 
 export default App;
