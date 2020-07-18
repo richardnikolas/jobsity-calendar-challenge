@@ -4,10 +4,7 @@
   grid-template-areas: 
     "header header header"
     "sidebar content content";
-  grid-template-rows: 1fr 7fr;
-  grid-template-columns: minmax(100px, 1fr) minmax(600px, 4fr);
+  grid-template-rows: 10vh 7fr;
+  grid-template-columns: minmax(100px, 15vw) minmax(600px, 4fr);
 }
 
-.calendar {
-  grid-area: content;
-}

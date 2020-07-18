@@ -1,5 +1,23 @@
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { calendarActions } from '../redux';
 import Calendar from './Calendar';
 
-export default connect()(Calendar);
+const mapStateToProps = ({ calendar }) => {
+  return {
+    daysOfTheMonth: calendar.daysOfTheMonth
+  };
+};
+
+const mapDispatchToProps = dispatch =>
+  bindActionCreators(
+    {
+      setDayOfTheMonth: calendarActions.setDayOfTheMonth
+    },
+    dispatch
+  );
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+  )(Calendar);

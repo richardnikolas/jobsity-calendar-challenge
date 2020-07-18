@@ -5,7 +5,7 @@ export const INITIAL_STATE = {
     name: '',
     city: ''
   },
-  reminders: [],
+  daysOfTheMonth: [],
   status: {
     weatherServiceError: false
   }
@@ -13,6 +13,8 @@ export const INITIAL_STATE = {
 
 export default (state = INITIAL_STATE, action) => {
   switch(action.type) {
+    case calendarActions.SET_DAY_OF_THE_MONTH:
+      return { ...state, daysOfTheMonth: [ ...state.daysOfTheMonth, action.payload ] }
     default:
       return state;
   }
