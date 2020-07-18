@@ -5,7 +5,7 @@ const useStyles = makeStyles(theme => ({
   container: {
     display: 'grid',
     width: '100%',
-    height: '3vh',
+    height: '4vh',
     gridTemplateColumns: 'repeat(7, 1fr)',
     backgroundColor: theme.palette.primary.main,
     placeItems: 'center'
