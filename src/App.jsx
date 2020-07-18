@@ -7,7 +7,8 @@ import { ThemeProvider } from '@material-ui/styles';
 import configureStore, { history } from './store';
 import { routes } from './shared/constants/routes';
 import { muiTheme, palette } from './shared/styles/theme';
-import Calendar from './features/calendar/views/Calendar';
+import withContext from './shared/hoc/withContext';
+import HomePage from './features/calendar/views/HomePage';
 
 const useStyles = makeStyles({
   root: {
@@ -30,10 +31,10 @@ function App() {
           <ConnectedRouter history={history}>          
             <Route path="*">
               <Switch>
-                <Route 
+                <Route
                   exact 
-                  path={routes.home.path} 
-                  render={Calendar} />
+                  path={routes.home.path}
+                  render={withContext(HomePage)} />
                 <Redirect path="*" to={routes.home.path} />
               </Switch>
             </Route>          
