@@ -1,0 +1,16 @@
+.reminder {
+  display: flex;
+  width: 92%;
+  height: 3vh;
+  border-radius: 5px;
+  justify-content: center;
+  margin-top: 4px;
+}
+
+.text {
+  font-size: 14px;
+  overflow: hidden;
+  margin: 3px;
+  padding: 3px;
+  color: #FFF;
+}

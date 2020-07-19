@@ -14,7 +14,9 @@ export const INITIAL_STATE = {
 export default (state = INITIAL_STATE, action) => {
   switch(action.type) {
     case calendarActions.SET_DAY_OF_THE_MONTH:
-      return { ...state, daysOfTheMonth: [ ...state.daysOfTheMonth, action.payload ] }
+      return { ...state, daysOfTheMonth: [ ...state.daysOfTheMonth, action.payload ] };
+    case calendarActions.SET_UPDATE_DAYS_OF_THE_MONTH:
+      return { ...state, daysOfTheMonth: action.payload };
     default:
       return state;
   }

@@ -1,17 +1,26 @@
 import React, { useEffect } from 'react';
 import DaysOfTheWeek from '../../../shared/components/DaysOfTheWeek';
 import CalendarDay from './CalendarDay';
-import './styles/Calendar.css';
+import CalendarDayContainer from './CalendarDayContainer';
 import moment from 'moment';
+import './styles/Calendar.css';
 
-const Calendar = function ({daysOfTheMonth, setDayOfTheMonth}) {
+const Calendar = function ({daysOfTheMonth, setDayOfTheMonth, updateDaysOfTheMonth}) {
   const dateObject = moment();
   let firstDay = moment(dateObject).startOf("month").format("d"); 
   let daysInMonth = moment(dateObject).daysInMonth();
 
+  // const reminderTest = {
+  //   day: '1',
+  //   text: 'Lorem Ipsum is my dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry',
+  //   color: '#1a8721'
+  // }
+
   const createMonthDays = () => {
-    for(let i = 1; i < daysInMonth+1; i++) 
-      setDayOfTheMonth({day: i, month: moment().month() + 1, reminders: []});    
+    for(let i = 1; i < daysInMonth+1; i++) {
+      let actualMonth = moment().month() + 1;
+      setDayOfTheMonth({id:`thisMonth${i}`, day: i, month: actualMonth, reminders: []});
+    }
   };
 
   useEffect(() => {
@@ -24,7 +33,7 @@ const Calendar = function ({daysOfTheMonth, setDayOfTheMonth}) {
     for(let i = 0; i < firstDay; i++){
       let day = moment().startOf('month').subtract(firstDay-i, 'days').date();
       empty.push(        
-        <CalendarDay day={day} styles={'inactiveDays'} key={`pastDays${i}`}/>
+        <CalendarDayContainer daysOfTheMonth={daysOfTheMonth} day={day} styles={'inactiveDays'} key={`pastDays${i}`}/>
       );
     }
     
@@ -37,7 +46,7 @@ const Calendar = function ({daysOfTheMonth, setDayOfTheMonth}) {
     if(daysOfTheMonth.length > 0) {
       for(let i = 0; i < daysInMonth; i++)
         days.push(
-          <CalendarDay day={daysOfTheMonth[i].day} key={`filledDays${i}`}/>
+          <CalendarDay day={daysOfTheMonth[i].day} reminders={daysOfTheMonth[i].reminders} key={`filledDays${i}`}/>
         );
     }
 
@@ -59,6 +68,11 @@ const Calendar = function ({daysOfTheMonth, setDayOfTheMonth}) {
 
     return futureDays;
   }
+
+  // setTimeout(function() {
+  //   let newDays = calendarManager.addNewReminder({ daysOfTheMonth, chosedDay: '1', newReminder: reminderTest });
+  //   updateDaysOfTheMonth(newDays);
+  // }, 5000);
 
   return (
     <section className="calendar-section">

@@ -7,3 +7,10 @@ body {
   font-family: 'Roboto', sans-serif;
   font-weight: 400;
 }
+
+:root {
+  --primaryBlue: #426cc7;
+  --darkerBlue: #052a79;
+  --error: #c95151;  
+  --yellow: #cfd14b;
+}
