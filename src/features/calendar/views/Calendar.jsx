@@ -10,12 +10,6 @@ const Calendar = function ({daysOfTheMonth, setDayOfTheMonth, updateDaysOfTheMon
   let firstDay = moment(dateObject).startOf("month").format("d"); 
   let daysInMonth = moment(dateObject).daysInMonth();
 
-  // const reminderTest = {
-  //   day: '1',
-  //   text: 'Lorem Ipsum is my dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry',
-  //   color: '#1a8721'
-  // }
-
   const createMonthDays = () => {
     for(let i = 1; i < daysInMonth+1; i++) {
       let actualMonth = moment().month() + 1;
@@ -68,11 +62,6 @@ const Calendar = function ({daysOfTheMonth, setDayOfTheMonth, updateDaysOfTheMon
 
     return futureDays;
   }
-
-  // setTimeout(function() {
-  //   let newDays = calendarManager.addNewReminder({ daysOfTheMonth, chosedDay: '1', newReminder: reminderTest });
-  //   updateDaysOfTheMonth(newDays);
-  // }, 5000);
 
   return (
     <section className="calendar-section">

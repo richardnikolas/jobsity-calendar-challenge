@@ -4,14 +4,7 @@ import CalendarDayReminder from './CalendarDayReminder'
 import './styles/Calendar.css';
 import './styles/CalendarDay.css';
 
-const CalendarDay = function({daysOfTheMonth, day, reminders, styles}) {    
-
-  // const reminder = {
-  //   day: '1',
-  //   text: 'Lorem Ipsum is my dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry',
-  //   color: '#1a8721'
-  // }
-
+const CalendarDay = function({day, reminders, styles}) {    
   const getReminders = () => {
     let thisReminders = [];
 

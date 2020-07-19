@@ -3,8 +3,23 @@
 }
 
 .header {
+  display: grid;
+  grid-template-columns: 3fr 4fr;
+  font-family: 'Quicksand', 'Roboto', sans-serif;
+  font-weight: 400;
   height: 100%;
   width: 100%;
   background-color: #FFF;
+}
+
+.greeting-container {
+  display: flex;
+  align-items: center;
+}
+
+.greeting {
+  font-size: 2em;
+  font-weight: 500;
+  margin: 0 0 0 15px;
 }
 

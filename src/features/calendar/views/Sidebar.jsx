@@ -6,12 +6,17 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import calendarManager from '../calendarManager';
+import { GithubPicker } from 'react-color';
+import ClickAwayListener from '@material-ui/core/ClickAwayListener';
+import reactCSS from 'reactcss'
 import './styles/Sidebar.css';
 
 const Sidebar = function({daysOfTheMonth, updateDaysOfTheMonth}) {
   const [open, setOpen] = useState(false);
+  const [displayColorPicker, setDisplayColorPicker] = useState(false);
   const [inputError, setInputError] = useState(false);
   const [newReminder, setNewReminder] = useState({
+    day: '',
     text: '',
     color: '#052a79',
     city: ''
@@ -23,6 +28,19 @@ const Sidebar = function({daysOfTheMonth, updateDaysOfTheMonth}) {
 
   const handleClose = () => {
     setOpen(false);
+    setInputError(false);
+  };
+
+  const handleOpenColorPicker = () => {
+    setDisplayColorPicker(!displayColorPicker);
+  };
+
+  const handleColorPickerClose = () => {
+    setDisplayColorPicker(false);
+  };
+
+  const handleColorChange = (newColor) => {
+    setNewReminder({...newReminder, color: newColor});
   };
 
   const handleInputChange = inputValue => {
@@ -34,12 +52,24 @@ const Sidebar = function({daysOfTheMonth, updateDaysOfTheMonth}) {
 
   const addNewReminder = () => {
     if (newReminder.text.length < 30) {
-      let updatedDays = calendarManager.addNewReminder({ daysOfTheMonth, chosedDay: '1', newReminder: newReminder });
+      let updatedDays = calendarManager.addNewReminder({ daysOfTheMonth, chosedDay: '10', newReminder: newReminder });
       updateDaysOfTheMonth(updatedDays);
 
       handleClose();
     }   
   };
+
+  const reactStyles = reactCSS({
+    'default': {
+      color: {
+        width: '90%',
+        height: '80%',
+        borderRadius: '5px',
+        margin: '3px',
+        backgroundColor: `${newReminder.color}`
+      }
+    }    
+  });
 
   return (
     <section className="sidebar-section">
@@ -68,16 +98,22 @@ const Sidebar = function({daysOfTheMonth, updateDaysOfTheMonth}) {
               onBlur={input => setNewReminder({...newReminder, text: input.target.value})}
               onChange={input => handleInputChange(input.target.value)}
             />
-            
-            <div className="div-color">
-              <TextField 
-                id="reminder-color"
-                label="Color"
-                margin="dense"
-                type="text"
-                defaultValue="#052a79"
-                onChange={input => setNewReminder({...newReminder, color: input.target.value})}
-              />
+
+            <div className="div-color-picker"> 
+              <button onClick={handleOpenColorPicker} className="btn-color-picker">
+                Pick Color
+              </button>
+              <div className="color-picker-swatch">
+                <div style={reactStyles.color} />
+              </div>
+              {displayColorPicker ? 
+                <ClickAwayListener onClickAway={handleColorPickerClose}>
+                  <div className="color-picker-popover">
+                    <div className="color-picker-cover" onClick={handleColorPickerClose} />
+                    <GithubPicker color={newReminder.color} onChangeComplete={e => handleColorChange(e.hex)} />
+                  </div>
+                </ClickAwayListener> : null
+              }
             </div>
             
             <TextField

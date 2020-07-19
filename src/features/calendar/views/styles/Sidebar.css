@@ -73,7 +73,43 @@
   width: 500px;
 }
 
-.div-color {
+.div-color-picker {
+  display: flex;
+  align-items: center;
+  margin: 20px 15px 10px 0;
+}
+
+.btn-color-picker {
+  width: 90px;
+  height: 40px;
+  padding: 5px;
+  border-radius: 5px;
+  border: 0px;
+  cursor: pointer;
+  margin-right: 15px;
+  border: 1px solid var(--darkerBlue);
+}
+
+.color-picker-swatch {
+  width: 40px;
+  height: 30px;
+  padding: 2px;
+  background-color: #FFF;
+  border-radius: 5px;
+  box-shadow: 0 0 0 1px rgba(0,0,0,.1);
   display: inline-block;
-  margin: 0 15px 0 0;
+}
+
+.color-picker-popover {
+  position: absolute;
+  z-index: 2;
+  margin-top: 22%;
+}
+
+.color-picker-cover {
+  position: 'fixed';
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
 }
