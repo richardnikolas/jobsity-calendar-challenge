@@ -73,6 +73,23 @@
   width: 500px;
 }
 
+.div-date-picker {
+  display: flex;
+  align-items: center;
+  margin: 0 0 10px 0;
+}
+
+.div-date-picker > p {
+  margin: 0 10px 0 0;
+  font-size: 16px;
+}
+
+.custom-date-picker > input {
+  padding: 3px 8px;
+  border-radius: 5px;
+  border-color: #9fc1f5;
+}
+
 .div-color-picker {
   display: flex;
   align-items: center;
@@ -88,6 +105,10 @@
   cursor: pointer;
   margin-right: 15px;
   border: 1px solid var(--darkerBlue);
+}
+
+.btn-color-picker:focus {
+  outline-color: var(--darkerBlue);
 }
 
 .color-picker-swatch {

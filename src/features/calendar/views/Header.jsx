@@ -16,7 +16,7 @@ const Header = function() {
     else if(hour > 17 && hour === 18 && minute < 59)
       return "Good evening";
     else 
-      return "Good night, Richard";
+      return "Good night";
   };
 
   return (

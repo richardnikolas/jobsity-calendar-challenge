@@ -8,7 +8,11 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import calendarManager from '../calendarManager';
 import { GithubPicker } from 'react-color';
 import ClickAwayListener from '@material-ui/core/ClickAwayListener';
-import reactCSS from 'reactcss'
+import reactCSS from 'reactcss';
+import DatePicker from "react-datepicker";
+import moment from 'moment';
+import { subDays, addDays } from 'date-fns';
+import "react-datepicker/dist/react-datepicker.css";
 import './styles/Sidebar.css';
 
 const Sidebar = function({daysOfTheMonth, updateDaysOfTheMonth}) {
@@ -16,11 +20,16 @@ const Sidebar = function({daysOfTheMonth, updateDaysOfTheMonth}) {
   const [displayColorPicker, setDisplayColorPicker] = useState(false);
   const [inputError, setInputError] = useState(false);
   const [newReminder, setNewReminder] = useState({
+    id: '',
+    date: null,
     day: '',
     text: '',
     color: '#052a79',
     city: ''
   });
+
+  const dateObject = moment();
+  const toEndThisMonth = moment(dateObject).daysInMonth() - moment().date();
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -51,12 +60,14 @@ const Sidebar = function({daysOfTheMonth, updateDaysOfTheMonth}) {
   };
 
   const addNewReminder = () => {
-    if (newReminder.text.length < 30) {
-      let updatedDays = calendarManager.addNewReminder({ daysOfTheMonth, chosedDay: '10', newReminder: newReminder });
+    if (newReminder.text.length === 0)
+      setInputError(true);
+    else if (newReminder.text.length <= 30) {
+      let updatedDays = calendarManager.addNewReminder({ daysOfTheMonth, chosedDay: newReminder.day, newReminder: newReminder });
       updateDaysOfTheMonth(updatedDays);
 
       handleClose();
-    }   
+    }
   };
 
   const reactStyles = reactCSS({
@@ -81,9 +92,22 @@ const Sidebar = function({daysOfTheMonth, updateDaysOfTheMonth}) {
           </div>
         </button>
 
+        {/* Yeah, this could be a Component */}
         <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
           <DialogTitle id="form-dialog-title">New Reminder</DialogTitle>
           <DialogContent className="dialog-test">
+            
+            <div className="div-date-picker">        
+              <p>Select a date: </p>
+              <DatePicker 
+                selected={newReminder.date}
+                onSelect={date => setNewReminder({ ...newReminder, date: date, day: moment(date).date(), id: `thisMonth${moment(date).date()}` })} 
+                calendarClassName="custom-date-picker"
+                minDate={subDays(new Date(), moment(new Date).date()-1)}
+                maxDate={addDays(new Date(), toEndThisMonth)}
+              /> 
+            </div>
+
             <TextField
               error={inputError}
               required
@@ -120,7 +144,11 @@ const Sidebar = function({daysOfTheMonth, updateDaysOfTheMonth}) {
               id="reminder-city"
               label="City"
               margin="dense"
-              onChange={input => setNewReminder({...newReminder, city: input.target.value, })}
+              onChange={input => setNewReminder({...newReminder, city: input.target.value })}
+              onBlur={input => {
+                if (input.target.value.length > 2)
+                  calendarManager.getWeatherForCity(input.target.value)
+              }}
             />
           </DialogContent>
           <DialogActions>
