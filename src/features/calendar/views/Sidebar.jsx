@@ -15,7 +15,16 @@ import { subDays, addDays } from 'date-fns';
 import "react-datepicker/dist/react-datepicker.css";
 import './styles/Sidebar.css';
 
-const Sidebar = function({daysOfTheMonth, updateDaysOfTheMonth}) {
+const Sidebar = function({
+    daysOfTheMonth, 
+    updateDaysOfTheMonth, 
+    getWeatherForCity, 
+    weatherServiceError,
+    setWeatherServiceError,
+    isLoading,
+    currentWeather,
+    setCurrentWeather}) 
+  {
   const [open, setOpen] = useState(false);
   const [displayColorPicker, setDisplayColorPicker] = useState(false);
   const [inputError, setInputError] = useState(false);
@@ -38,6 +47,8 @@ const Sidebar = function({daysOfTheMonth, updateDaysOfTheMonth}) {
   const handleClose = () => {
     setOpen(false);
     setInputError(false);
+    setCurrentWeather({});
+    setWeatherServiceError(false);
   };
 
   const handleOpenColorPicker = () => {
@@ -62,8 +73,15 @@ const Sidebar = function({daysOfTheMonth, updateDaysOfTheMonth}) {
   const addNewReminder = () => {
     if (newReminder.text.length === 0)
       setInputError(true);
+
     else if (newReminder.text.length <= 30) {
-      let updatedDays = calendarManager.addNewReminder({ daysOfTheMonth, chosedDay: newReminder.day, newReminder: newReminder });
+      let updatedDays = calendarManager.addNewReminder({ 
+        daysOfTheMonth, 
+        chosedDay: newReminder.day,
+        newReminder: newReminder, 
+        currentWeather 
+      });
+
       updateDaysOfTheMonth(updatedDays);
 
       handleClose();
@@ -78,6 +96,9 @@ const Sidebar = function({daysOfTheMonth, updateDaysOfTheMonth}) {
         borderRadius: '5px',
         margin: '3px',
         backgroundColor: `${newReminder.color}`
+      },
+      icon: {
+        background: `url(${currentWeather.iconUrl ? currentWeather.iconUrl : ''}) no-repeat`
       }
     }    
   });
@@ -144,18 +165,27 @@ const Sidebar = function({daysOfTheMonth, updateDaysOfTheMonth}) {
               id="reminder-city"
               label="City"
               margin="dense"
+              error={weatherServiceError}
               onChange={input => setNewReminder({...newReminder, city: input.target.value })}
               onBlur={input => {
-                if (input.target.value.length > 2)
-                  calendarManager.getWeatherForCity(input.target.value)
+                if (input.target.value.length > 0)
+                  getWeatherForCity(input.target.value);
               }}
             />
+
+            {currentWeather.main ? 
+              <div className="div-weather">
+                <p className="weather-label">Weather: </p>
+                <p className="weather-description">{currentWeather.description}</p>
+                <div style={reactStyles.icon} className="weather-icon" />
+              </div> : null
+            }
           </DialogContent>
           <DialogActions>
             <button onClick={handleClose} className="btn-cancel-create-reminder">
               Cancel
             </button>
-            <button onClick={addNewReminder} className="btn-create-reminder">
+            <button onClick={addNewReminder} className="btn-create-reminder" disabled={weatherServiceError || isLoading}>
               Create
             </button>
           </DialogActions>

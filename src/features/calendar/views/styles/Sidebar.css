@@ -56,6 +56,11 @@
   border: 1px solid var(--darkerBlue);
 }
 
+.btn-create-reminder:disabled {
+  background-color: lightgray;
+  border-color: #CCC;
+}
+
 .btn-cancel-create-reminder {
   width: 80px;
   height: 35px;
@@ -133,4 +138,26 @@
   right: 0;
   bottom: 0;
   left: 0;
+}
+
+.div-weather {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.weather-label {
+  font-weight: 700;
+  margin-right: 5px;
+}
+
+.weather-description {
+  text-transform: capitalize;
+}
+
+.weather-icon {
+  width: 100px;
+  height: 80px;
+  background-position-y: center !important;
 }
