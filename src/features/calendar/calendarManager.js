@@ -25,9 +25,9 @@ class CalendarManager {
     return updatedDays;
   };
 
-  organizeRemindersByTime = ({ reminders }) => {
-    return reminders.sort((a, b) => b.date - a.date);
-  };
+  // organizeRemindersByTime = ({ reminders }) => {
+  //   return reminders.sort((a, b) => b.date - a.date);
+  // };
 
   getWeatherForCity = cityName => {
     return calendarService.getWeatherByCity(cityName);

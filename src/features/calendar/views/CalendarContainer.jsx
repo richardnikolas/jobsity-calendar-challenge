@@ -12,8 +12,7 @@ const mapStateToProps = ({ calendar }) => {
 const mapDispatchToProps = dispatch =>
   bindActionCreators(
     {
-      setDayOfTheMonth: calendarActions.setDayOfTheMonth,
-      updateDaysOfTheMonth: calendarActions.updateDaysOfTheMonth
+      setDayOfTheMonth: calendarActions.setDayOfTheMonth
     },
     dispatch
   );

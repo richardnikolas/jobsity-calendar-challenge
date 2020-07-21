@@ -5,7 +5,7 @@ import CalendarDayContainer from './CalendarDayContainer';
 import moment from 'moment';
 import './styles/Calendar.css';
 
-const Calendar = function ({daysOfTheMonth, setDayOfTheMonth, updateDaysOfTheMonth}) {
+const Calendar = function ({daysOfTheMonth, setDayOfTheMonth}) {
   const dateObject = moment();
   let firstDay = moment(dateObject).startOf("month").format("d"); 
   let daysInMonth = moment(dateObject).daysInMonth();

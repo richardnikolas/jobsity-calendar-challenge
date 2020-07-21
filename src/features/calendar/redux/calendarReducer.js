@@ -2,8 +2,7 @@ import * as calendarActions from './calendarActions';
 
 export const INITIAL_STATE = {
   user : {
-    name: '',
-    city: ''
+    name: ''
   },
   daysOfTheMonth: [],
   status: {

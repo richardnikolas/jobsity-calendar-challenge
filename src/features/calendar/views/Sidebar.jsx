@@ -9,10 +9,10 @@ import calendarManager from '../calendarManager';
 import { GithubPicker } from 'react-color';
 import ClickAwayListener from '@material-ui/core/ClickAwayListener';
 import reactCSS from 'reactcss';
-import DatePicker from "react-datepicker";
+import DatePicker from 'react-datepicker';
 import moment from 'moment';
 import { subDays, addDays } from 'date-fns';
-import "react-datepicker/dist/react-datepicker.css";
+import 'react-datepicker/dist/react-datepicker.css';
 import './styles/Sidebar.css';
 
 const Sidebar = function({
@@ -113,7 +113,7 @@ const Sidebar = function({
           </div>
         </button>
 
-        {/* Yeah, this could be a Component */}
+        {/* Yeah, this should be a Component */}
         <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
           <DialogTitle id="form-dialog-title">New Reminder</DialogTitle>
           <DialogContent className="dialog-test">
