@@ -1,7 +1,7 @@
 import * as calendarActions from './calendarActions';
 
 export const INITIAL_STATE = {
-  user : {
+  user: {
     name: ''
   },
   daysOfTheMonth: [],
@@ -9,13 +9,14 @@ export const INITIAL_STATE = {
     weatherServiceError: false
   },
   currentWeather: {},
+  userIdentified: false,
   isLoading: false
 };
 
 export default (state = INITIAL_STATE, action) => {
-  switch(action.type) {
+  switch (action.type) {
     case calendarActions.SET_DAY_OF_THE_MONTH:
-      return { ...state, daysOfTheMonth: [ ...state.daysOfTheMonth, action.payload ] };
+      return { ...state, daysOfTheMonth: [...state.daysOfTheMonth, action.payload] };
     case calendarActions.SET_UPDATE_DAYS_OF_THE_MONTH:
       return { ...state, daysOfTheMonth: action.payload };
     case calendarActions.SET_WEATHER_SERVICE_ERROR:
@@ -27,8 +28,12 @@ export default (state = INITIAL_STATE, action) => {
       };
     case calendarActions.SET_CURRENT_WEATHER:
       return { ...state, currentWeather: { ...action.payload } };
+    case calendarActions.SET_USER_NAME:
+      return { ...state, user: { name: action.payload } }
+    case calendarActions.SET_USER_IDENTIFIED:
+      return { ...state, userIdentified: action.payload }
     case calendarActions.SET_IS_LOADING:
-      return { ...state, isLoading: action.payload }  
+      return { ...state, isLoading: action.payload }
     default:
       return state;
   }

@@ -40,9 +40,8 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test --colors --coverage --watchAll",
+    "test": "react-scripts test --colors --coverage --updateSnapshot --watchAll",
     "test:debug": "react-scripts --inspect-brk test --runInBand --no-cache --colors",
-    "test:update": "react-scripts test --updateSnapshot --colors",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {

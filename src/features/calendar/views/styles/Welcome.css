@@ -1,0 +1,59 @@
+.dialog {
+  overflow: hidden;
+}
+
+.welcome-container {
+  display: grid;
+  width: 60vw;
+  height: 60vh;
+  background-color: #FFF;
+  overflow-x: hidden;
+  grid-template-columns: 1fr 1fr;
+  border-radius: 5px;
+}
+
+.welcome-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40px 10px;
+  justify-content: center;
+}
+
+.welcome-form > h1, .welcome-form > h2 {
+  font-family: 'Quicksand';
+  margin: 10px;
+}
+
+.welcome-form > h1 {
+  font-size: 4rem;
+}
+
+.welcome-form > h2 {
+  font-size: 2em;
+}
+
+.welcome-name-input {
+  width: 180px;
+  margin-top: 6vh !important;
+}
+
+.welcome-btn-proceed {
+  width: 180px;
+  height: 50px;
+  font-size: 18px;
+  border-radius: 10px;
+  font-family: 'Roboto';
+  color: #FFF;
+  cursor: pointer;
+  margin: 10px;
+  background-color: var(--darkerBlue);
+  border: 1px solid var(--darkerBlue);
+  margin-top: 10vh;
+}
+
+.welcome-img {
+  background: url('../../../../shared/images/hello.jpg') no-repeat;
+  background-size: cover;
+  background-position-y: center;
+}

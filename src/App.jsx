@@ -4,11 +4,11 @@ import { ConnectedRouter } from 'connected-react-router';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import { ThemeProvider } from '@material-ui/styles';
-import configureStore, { history } from './store';
 import { routes } from './shared/constants/routes';
 import { muiTheme, palette } from './shared/styles/theme';
+import configureStore, { history } from './store';
 import withContext from './shared/hoc/withContext';
-import HomePage from './features/calendar/views/HomePage';
+import HomePageContainer from './features/calendar/views/HomePageContainer';
 
 const useStyles = makeStyles({
   root: {
@@ -28,16 +28,16 @@ function App() {
     <Provider store={store}>
       <ThemeProvider theme={muiTheme}>
         <div className={classes.root} id={'rootApp'}>
-          <ConnectedRouter history={history}>          
+          <ConnectedRouter history={history}>
             <Route path="*">
               <Switch>
                 <Route
-                  exact 
+                  exact
                   path={routes.home.path}
-                  render={withContext(HomePage)} />
+                  render={withContext(HomePageContainer)} />
                 <Redirect path="*" to={routes.home.path} />
               </Switch>
-            </Route>          
+            </Route>
           </ConnectedRouter>
         </div>
       </ThemeProvider>
