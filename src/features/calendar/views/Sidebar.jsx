@@ -15,16 +15,16 @@ import { subDays, addDays } from 'date-fns';
 import 'react-datepicker/dist/react-datepicker.css';
 import './styles/Sidebar.css';
 
-const Sidebar = function({
-    daysOfTheMonth, 
-    updateDaysOfTheMonth, 
-    getWeatherForCity, 
-    weatherServiceError,
-    setWeatherServiceError,
-    isLoading,
-    currentWeather,
-    setCurrentWeather}) 
-  {
+const Sidebar = function ({
+  daysOfTheMonth,
+  updateDaysOfTheMonth,
+  getWeatherForCity,
+  weatherServiceError,
+  setWeatherServiceError,
+  isLoading,
+  currentWeather,
+  setCurrentWeather }) {
+
   const [open, setOpen] = useState(false);
   const [displayColorPicker, setDisplayColorPicker] = useState(false);
   const [inputError, setInputError] = useState(false);
@@ -48,6 +48,14 @@ const Sidebar = function({
     setOpen(false);
     setInputError(false);
     setCurrentWeather({});
+    setNewReminder({
+      id: '',
+      date: null,
+      day: '',
+      text: '',
+      color: '#052a79',
+      city: ''
+    });
     setWeatherServiceError(false);
   };
 
@@ -60,13 +68,13 @@ const Sidebar = function({
   };
 
   const handleColorChange = (newColor) => {
-    setNewReminder({...newReminder, color: newColor});
+    setNewReminder({ ...newReminder, color: newColor });
   };
 
   const handleInputChange = inputValue => {
-    if(inputValue.length > 30)
+    if (inputValue.length > 30)
       setInputError(true);
-    else 
+    else
       setInputError(false);
   };
 
@@ -75,11 +83,11 @@ const Sidebar = function({
       setInputError(true);
 
     else if (newReminder.text.length <= 30) {
-      let updatedDays = calendarManager.addNewReminder({ 
-        daysOfTheMonth, 
+      let updatedDays = calendarManager.addNewReminder({
+        daysOfTheMonth,
         chosedDay: newReminder.day,
-        newReminder: newReminder, 
-        currentWeather 
+        newReminder: newReminder,
+        currentWeather
       });
 
       updateDaysOfTheMonth(updatedDays);
@@ -100,7 +108,7 @@ const Sidebar = function({
       icon: {
         background: `url(${currentWeather.iconUrl ? currentWeather.iconUrl : ''}) no-repeat`
       }
-    }    
+    }
   });
 
   return (
@@ -117,16 +125,16 @@ const Sidebar = function({
         <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
           <DialogTitle id="form-dialog-title">New Reminder</DialogTitle>
           <DialogContent className="dialog-test">
-            
-            <div className="div-date-picker">        
+
+            <div className="div-date-picker">
               <p>Select a date: </p>
-              <DatePicker 
+              <DatePicker
                 selected={newReminder.date}
-                onSelect={date => setNewReminder({ ...newReminder, date: date, day: moment(date).date(), id: `thisMonth${moment(date).date()}` })} 
+                onSelect={date => setNewReminder({ ...newReminder, date: date, day: moment(date).date(), id: `thisMonth${moment(date).date()}` })}
                 calendarClassName="custom-date-picker"
-                minDate={subDays(new Date(), moment(new Date).date()-1)}
+                minDate={subDays(new Date(), moment(new Date).date() - 1)}
                 maxDate={addDays(new Date(), toEndThisMonth)}
-              /> 
+              />
             </div>
 
             <TextField
@@ -137,21 +145,21 @@ const Sidebar = function({
               label="Max of 30 chars"
               placeholder="Type your reminder here"
               fullWidth={true}
-              multiline={true}   
+              multiline={true}
               type="text"
               margin="dense"
-              onBlur={input => setNewReminder({...newReminder, text: input.target.value})}
+              onBlur={input => setNewReminder({ ...newReminder, text: input.target.value })}
               onChange={input => handleInputChange(input.target.value)}
             />
 
-            <div className="div-color-picker"> 
+            <div className="div-color-picker">
               <button onClick={handleOpenColorPicker} className="btn-color-picker">
                 Pick Color
               </button>
               <div className="color-picker-swatch">
                 <div style={reactStyles.color} />
               </div>
-              {displayColorPicker ? 
+              {displayColorPicker ?
                 <ClickAwayListener onClickAway={handleColorPickerClose}>
                   <div className="color-picker-popover">
                     <div className="color-picker-cover" onClick={handleColorPickerClose} />
@@ -160,20 +168,21 @@ const Sidebar = function({
                 </ClickAwayListener> : null
               }
             </div>
-            
+
             <TextField
               id="reminder-city"
-              label="City"
+              label="Select the location"
+              placeholder="Insert a city name"
               margin="dense"
               error={weatherServiceError}
-              onChange={input => setNewReminder({...newReminder, city: input.target.value })}
+              onChange={input => setNewReminder({ ...newReminder, city: input.target.value })}
               onBlur={input => {
                 if (input.target.value.length > 0)
                   getWeatherForCity(input.target.value);
               }}
             />
 
-            {currentWeather.main ? 
+            {currentWeather.main ?
               <div className="div-weather">
                 <p className="weather-label">Weather: </p>
                 <p className="weather-description">{currentWeather.description}</p>

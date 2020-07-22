@@ -22,7 +22,7 @@ describe('Calendar - Reducer', () => {
 
     expect(newState).toStrictEqual({
       ...INITIAL_STATE,
-      daysOfTheMonth: [ ...state.daysOfTheMonth, action.payload ]
+      daysOfTheMonth: [...state.daysOfTheMonth, action.payload]
     });
     expect(newState.daysOfTheMonth[0].id).toBe('thisMonth1');
   });
@@ -73,6 +73,36 @@ describe('Calendar - Reducer', () => {
     });
     expect(newState.currentWeather.id).toBe(500);
     expect(newState.currentWeather.description).toBe("light rain");
+  });
+
+  it('should SET_USER_NAME', () => {
+    const action = {
+      type: calendarActions.SET_USER_NAME,
+      payload: "John Doe"
+    };
+
+    const newState = calendarReducer(INITIAL_STATE, action);
+
+    expect(newState).toStrictEqual({
+      ...INITIAL_STATE,
+      user: { name: action.payload }
+    });
+    expect(newState.user.name).toBe("John Doe");
+  });
+
+  it('should SET_USER_IDENTIFIED', () => {
+    const action = {
+      type: calendarActions.SET_USER_IDENTIFIED,
+      payload: true
+    };
+
+    const newState = calendarReducer(INITIAL_STATE, action);
+
+    expect(newState).toStrictEqual({
+      ...INITIAL_STATE,
+      userIdentified: action.payload
+    });
+    expect(newState.userIdentified).toBe(true);
   });
 
   it('should SET_IS_LOADING', () => {
