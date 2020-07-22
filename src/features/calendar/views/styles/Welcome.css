@@ -7,9 +7,9 @@
   width: 60vw;
   height: 60vh;
   background-color: #FFF;
-  overflow-x: hidden;
+  overflow: hidden;
   grid-template-columns: 1fr 1fr;
-  border-radius: 5px;
+  border-radius: 5px;  
 }
 
 .welcome-form {

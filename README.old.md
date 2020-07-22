@@ -1,1 +1,0 @@
-# jobsity-calendar-challenge
